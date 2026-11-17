@@ -8,12 +8,12 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main id="game-shell">
-    <canvas id="game" aria-label="World Grand Thief game canvas"></canvas>
+  <main id="game-shell" class="menu-open">
+    <canvas id="game" aria-label="World Grand Thief 3D game canvas"></canvas>
     <div class="vignette"></div>
     <header class="topbar">
       <a class="brand" href="#" aria-label="World Grand Thief home"><span class="brand-mark">W</span><span>WORLD GRAND <b>THIEF</b><small>WGF · PACIFIC DISTRICT</small></span></a>
-      <div class="top-center"><span class="live-dot"></span> SAN PALOMA <i>•</i> 18:42</div>
+      <div class="top-center"><span class="live-dot"></span> SAN PALOMA <i>•</i> <span id="city-clock">18:42</span> <i>•</i> <span id="weather-label">CLEAR</span></div>
       <button class="icon-button" id="sound-toggle" aria-label="Toggle sound">♫ <span>SOUND</span></button>
     </header>
     <section class="mission-card" id="mission-card">
@@ -24,23 +24,36 @@
       <div class="objective-row"><span class="objective-icon">⌖</span><span id="objective-text">Find the yellow marker</span><span class="distance" id="distance">—</span></div>
     </section>
     <aside class="status-card">
-      <div class="cash-label">WALLET</div><div class="cash-value">$<span id="cash">2,450</span></div>
+      <div class="cash-label">WALLET</div><div class="cash-value">$<span id="cash">2,450</span></div><div class="collectible-count"><span>✦</span> CITY STASHES <b id="stash-count">0 / 8</b></div>
       <div class="status-divider"></div>
       <div class="heat-head"><span>HEAT</span><span id="heat-word">CLEAR</span></div>
       <div class="heat-stars" id="heat-stars"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></div>
       <div class="heat-caption" id="heat-caption">Keep a low profile</div>
     </aside>
     <div class="minimap-frame"><canvas id="minimap" width="180" height="180"></canvas><div class="map-label">DISTRICT MAP <span>↗</span></div></div>
-    <div class="vehicle-hud" id="vehicle-hud"><div class="speed-wrap"><span class="speed-number" id="speed">000</span><span class="speed-unit">KM/H</span></div><div class="vehicle-data"><span>VEHICLE</span><b id="vehicle-name">—</b><div class="fuel-track"><i id="fuel-fill"></i></div></div></div>
+    <div class="vehicle-hud" id="vehicle-hud"><div class="speed-wrap"><span class="speed-number" id="speed">000</span><span class="speed-unit">KM/H</span></div><div class="vehicle-data"><span>VEHICLE</span><b id="vehicle-name">—</b><div class="fuel-track"><i id="fuel-fill"></i></div><div class="nitro-track"><i id="nitro-fill"></i></div></div></div>
     <div class="toast" id="toast"></div>
     <div class="controls-hint" id="controls-hint"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> MOVE</span><i></i><span><kbd>E</kbd> ENTER / EXIT</span><i></i><span><kbd>SHIFT</kbd> SPRINT</span></div>
     <div class="overlay" id="overlay">
       <div class="intro-panel">
         <div class="intro-kicker"><span></span> A CITY THAT NEVER SITS STILL</div>
         <div class="intro-title">WORLD<br><em>GRAND</em> THIEF<span class="title-dot">.</span></div>
-        <p class="intro-description">One neighborhood. Three deliveries. Make your own way through San Paloma.</p>
-        <button id="start-button" class="start-button">START YOUR STORY <span>↗</span></button>
-        <div class="intro-foot"><span>WGF ORIGINAL</span><span>AN OPEN-CITY ARCADE</span><span>EST. 2025</span></div>
+        <p class="intro-description">One city, your rules. Play the story, roam freely, share the couch, or meet a friend online.</p>
+        <div class="mode-picker" role="group" aria-label="Choose a game mode">
+          <button class="mode-option selected" data-mode="story"><b>01</b><span>STORY<small>Offline · missions</small></span></button>
+          <button class="mode-option" data-mode="roam"><b>02</b><span>FREE ROAM<small>Offline · no missions</small></span></button>
+          <button class="mode-option" data-mode="local"><b>03</b><span>LOCAL CO-OP<small>Two players · one screen</small></span></button>
+          <button class="mode-option" data-mode="online"><b>04</b><span>ONLINE LINK<small>Peer-to-peer · invite a friend</small></span></button>
+        </div>
+        <div class="online-panel" id="online-panel" hidden>
+          <div class="online-actions"><button id="host-online">CREATE INVITE</button><button id="join-online">JOIN INVITE</button></div>
+          <label for="signal-box" id="signal-label">Online setup uses a direct peer connection. No account or game server required.</label>
+          <textarea id="signal-box" spellcheck="false" placeholder="Invite / answer text appears here…"></textarea>
+          <div class="online-actions"><button id="copy-signal">COPY</button><button id="apply-signal">PASTE / CONNECT</button></div>
+          <small id="online-status">Choose Create Invite or Join Invite.</small>
+        </div>
+        <button id="start-button" class="start-button">START STORY <span>↗</span></button>
+        <div class="intro-foot"><span>WGF ORIGINAL</span><span>OFFLINE PLAY</span><span>PLAY YOUR WAY</span></div>
       </div>
       <div class="overlay-note">A SMALL SLICE OF A BIG CITY <span>— DRIVE SAFE(ISH)</span></div>
     </div>
@@ -50,6 +63,6 @@
       <div class="mobile-actions"><button id="mobile-enter">E<br><small>ENTER</small></button><button id="mobile-sprint">↗<br><small>SPRINT</small></button></div>
     </div>
   </main>
-  <script src="game.js"></script>
+  <script type="module" src="game.js"></script>
 </body>
 </html>
